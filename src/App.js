@@ -3,9 +3,11 @@
   import './App.css';
   import BookList from './BookList';
 
+
   class App extends React.Component {
     state = {
       books: [],
+      shelf: [],
       /**
       * TODO: Instead of using this state variable to keep track of which page
       * we're on, use the URL in the browser's address bar. This will ensure that
@@ -20,6 +22,13 @@
         this.setState({ books })
       })
     }
+
+  //  updateShelf = (book, shelf) => {
+  //      this.setState((state) => ({
+  //      books: state.books.filter((b) => b.shelf )
+  //    }))
+
+
 
 
     render() {
@@ -46,7 +55,9 @@
                   <ol className="books-grid"></ol>
                 </div>
               </div>
+
             ) : (
+
               <div className="list-books">
                 <div className="list-books-title">
                   <h1>MyReads</h1>
@@ -196,13 +207,13 @@
                               <div className="book-title">The Adventures of Tom Sawyer</div>
                               <div className="book-authors">Mark Twain</div>
                             </div>
-                            <BookList />
                           </li>
                         </ol>
                       </div>
                     </div>
                   </div>
                 </div>
+                  <BookList books={this.state.books} bookShelfUpdate={this.updateShelf} />
                 <div className="open-search">
                   <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
                 </div>
