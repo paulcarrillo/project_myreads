@@ -15,12 +15,19 @@
       * users can use the browser's back and forward buttons to navigate between
       * pages, as well as provide a good URL they can bookmark and share.
       */
-      //showSearchPage: true
     }
 
     componentDidMount() {
       BooksAPI.getAll().then((books) => {
         this.setState({ books })
+      })
+    }
+
+    updateShelf = (book, newShelf) => {
+      BooksAPI.update(book, newShelf).then(b => {
+        this.setState(state => ({
+          books: state.books.concat([ book ])
+        }))
       })
     }
 
@@ -31,6 +38,9 @@
 
   //    BooksAPI.update()
 
+//  changeShelf = (book, newShelf) => {
+    // Here you will call BookAPI.update(book, newShelf) method
+    // once you get back the response you ll need to find the book within the existing books you have in state and update that as well
 
 
 
@@ -40,7 +50,7 @@
           <Route exact path="/" render={() => (
             <BookList
                 books={this.state.books}
-                bookShelfUpdate={this.updateShelf}
+                update={this.updateShelf}
               />
           )}/>
           <Route path="/search" render={() => (

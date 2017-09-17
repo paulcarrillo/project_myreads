@@ -4,6 +4,7 @@
   class BookList extends Component {
 
     render() {
+      console.log(this.props);
       return (
         <div className="list-books">
           <div className="list-books">
@@ -162,6 +163,15 @@
               </div>
             </div>
             </div>
+
+        <div className="list-books">
+          <div className="list-books-title">
+            <h1>My Reads</h1>
+          </div>
+          <div className="book-list-content">
+          <div>
+            <div className="bookshelf">
+              <h2 className="bookshelf-title">Currently Reading</h2>
         <ol className="books-grid">
           {this.props.books.map((book) => (
             <li key={book.id}>
@@ -169,7 +179,7 @@
               <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 170, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
               <div className="book-shelf-changer">
-                <select>
+                <select onClick={this.updateShelf}>
                   <option value="none" disabled>Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>
@@ -184,6 +194,13 @@
           </li>
           ))}
         </ol>
+      </div>
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">Want To Read</h2>
+      </div>
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">Read</h2>
+      </div>
         <div className="open-search">
           <Link
             to="/search"
@@ -191,6 +208,9 @@
           </Link>
         </div>
       </div>
+      </div>
+    </div>
+    </div>
       )
     }
   }
