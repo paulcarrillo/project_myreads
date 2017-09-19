@@ -24,10 +24,12 @@
     }
 
     updateShelf = (book, newShelf) => {
-      BooksAPI.update(book, newShelf).then(b => {
-        this.setState(state => ({
-          books: state.books.concat([ book ])
-        }))
+      console.log(book);
+      console.log(newShelf);
+      BooksAPI.update(book, newShelf)
+        .then(b => {
+          console.log(b)
+
       })
     }
 
