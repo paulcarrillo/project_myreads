@@ -1,6 +1,8 @@
   import React, { Component } from 'react';
   import escapeRegExp from 'escape-string-regexp';
   import sortBy from 'sort-by';
+  import { Link } from 'react-router-dom';
+
 
 
   class SearchPage extends Component {
@@ -12,6 +14,8 @@
     updateQuery = (query) => {
       this.setState({ query: query.trim() })
     }
+
+
 
     render() {
       console.log('Props', this.props.books)
@@ -28,6 +32,11 @@
       return (
         <div className="search-books">
           <div className="search-books-bar">
+            <Link className="close-search"
+              to={{
+                pathname: "/"
+              }}
+              >close</Link>
             <div className="search-books-input-wrapper">
               <input
                 type="text"

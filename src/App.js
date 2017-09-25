@@ -9,6 +9,7 @@
   class App extends React.Component {
     state = {
       books: [],
+      bookshelf: []
       /**
       * TODO: Instead of using this state variable to keep track of which page
       * we're on, use the URL in the browser's address bar. This will ensure that
@@ -23,27 +24,21 @@
       })
     }
 
-    updateShelf = (book, newShelf) => {
-      console.log(book);
-      console.log(newShelf);
-      BooksAPI.update(book, newShelf)
-        .then(b => {
-          console.log(b)
+    updateShelf = (book, shelf) => {
+      BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf
+      this.setState(previousState => ({
+        books: previousState.books
+                     .filter(b => b.id !== book.id)
+                     .concat([book])
+                   }))
+                 })
+               }
 
-      })
-    }
 
-  //updateShelf = (book, shelf) => {
-  //    this.setState((state) => ({
-  //    books: state.books.filter((b) => b.shelf !== book.shelf)
-  //    }))
-
-  //    BooksAPI.update()
-
-//  changeShelf = (book, newShelf) => {
-    // Here you will call BookAPI.update(book, newShelf) method
-    // once you get back the response you ll need to find the book within the existing books you have in state and update that as well
-
+      searchBook = (bookQuery) => {
+        BooksAPI.search(bookQuery, 20).then((res) => console.log(res))
+      }
 
 
     render() {
@@ -56,7 +51,10 @@
               />
           )}/>
           <Route path="/search" render={() => (
-              <SearchPage books={this.state.books} />
+              <SearchPage
+                books={this.state.books}
+
+              />
           )}/>
         </div>
         )
