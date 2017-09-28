@@ -8,8 +8,7 @@
 
   class App extends React.Component {
     state = {
-      books: [],
-      bookshelf: []
+      books: []
       /**
       * TODO: Instead of using this state variable to keep track of which page
       * we're on, use the URL in the browser's address bar. This will ensure that
@@ -35,10 +34,12 @@
                  })
                }
 
+        booksearch = (query) => {
+          BooksAPI.search(query, 20).then((results) => {
 
-      searchBook = (bookQuery) => {
-        BooksAPI.search(bookQuery, 20).then((res) => console.log(res))
-      }
+            console.log(query);
+          })
+        }
 
 
     render() {
@@ -53,6 +54,7 @@
           <Route path="/search" render={() => (
               <SearchPage
                 books={this.state.books}
+                update={this.updateShelf}
 
               />
           )}/>

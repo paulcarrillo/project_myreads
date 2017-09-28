@@ -2,14 +2,17 @@
   import { Link } from 'react-router-dom';
 
   class BookList extends Component {
+
     handleChange = (event, book) => {
       const { value } = event.target;
+      console.log(event.target.value);
       this.props.update(book, value);
     }
 
 
+
     render() {
-      console.log(this.props);
+      console.log('Props', this.props);
       return (
         <div className="list-books">
             <div className="list-books">
@@ -74,7 +77,7 @@
                       <div className="bookshelf">
                         <h2 className="bookshelf-title">Read</h2>
                           <ol className="books-grid">
-                            {this.props.books.map((book) => (
+                          {this.props.books.filter(book => book.shelf === 'read').map( book => (
                               <li key={book.id}>
                                 <div className="book">
                                   <div className="book-top">
