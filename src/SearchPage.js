@@ -1,6 +1,5 @@
   import React, { Component } from 'react';
-  import escapeRegExp from 'escape-string-regexp';
-  import sortBy from 'sort-by';
+  import Proptypes from 'prop-types';
   import { Link } from 'react-router-dom';
   import * as BooksAPI from './BooksAPI';
 
@@ -17,7 +16,7 @@
         query: query.trim()
       })
       if(query) {
-        BooksAPI.search(query.trim(), 50).then((results) => {
+        BooksAPI.search(query.trim(), 20).then((results) => {
           if(!results || results.error){
             this.setState({results: []})
           } else {
@@ -29,36 +28,14 @@
       }
     }
 
-  //  bookShelf = (results) => {
-  //    for(let result of results ){
-  //      for(let book of this.props.books)
-  //        if(results.id === book.id) {
-  //          result.shelf = book.shelf
-  //        } else {
-  //          result.shelf = 'none'
-  //        }
-  //    }
-  //  }
-
     handleChange = (event, book) => {
       const { value } = event.target;
-      console.log(event.target.value);
       this.props.update(book, value);
     }
 
 
 
     render() {
-      let showingBooks
-      if (this.state.query) {
-        const match = new RegExp(escapeRegExp(this.state.query), 'i')
-        showingBooks = this.props.books.filter((book) => match.test(book.title))
-      } else {
-        showingBooks = this.props.books
-      }
-
-      showingBooks.sort(sortBy('title'))
-
       return (
         <div className="search-books">
           <div className="search-books-bar">
@@ -103,6 +80,11 @@
         </div>
       )
     }
+  }
+
+  SearchPage.proptypes = {
+    books: Proptypes.array.isRequired,
+    update: Proptypes.func.isRequired
   }
 
   export default SearchPage;

@@ -34,15 +34,12 @@
                  })
                }
 
-        booksearch = (query) => {
-          BooksAPI.search(query, 20).then((results) => {
-
-            console.log(query);
-          })
+     handleChange = (event, book) => {
+        const { value } = event.target;
+        this.state.update(book, value);
         }
 
-
-    render() {
+      render() {
       return (
         <div className="app">
           <Route exact path="/" render={() => (

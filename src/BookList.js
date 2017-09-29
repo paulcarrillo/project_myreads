@@ -1,18 +1,15 @@
   import React, { Component }from 'react';
+  import Proptypes from 'prop-types';
   import { Link } from 'react-router-dom';
 
   class BookList extends Component {
 
     handleChange = (event, book) => {
       const { value } = event.target;
-      console.log(event.target.value);
       this.props.update(book, value);
     }
 
-
-
     render() {
-      console.log('Props', this.props);
       return (
         <div className="list-books">
             <div className="list-books">
@@ -112,6 +109,11 @@
             </div>
           )
         }
+      }
+
+      BookList.proptypes = {
+        books: Proptypes.array.isRequired,
+        update: Proptypes.func.isRequired
       }
 
       export default BookList;
