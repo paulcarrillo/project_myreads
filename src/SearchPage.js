@@ -1,5 +1,5 @@
   import React, { Component } from 'react';
-  import Proptypes from 'prop-types';
+  //import Proptypes from 'prop-types';
   import { Link } from 'react-router-dom';
   import * as BooksAPI from './BooksAPI';
 
@@ -20,6 +20,7 @@
           if(!results || results.error){
             this.setState({results: []})
           } else {
+            this.bookShelf(results)
             this.setState({results:results})
           }
         }
@@ -31,6 +32,17 @@
     handleChange = (event, book) => {
       const { value } = event.target;
       this.props.update(book, value);
+    }
+
+    bookShelf = (results) => {
+      for (let result of results){
+        for (let book of this.props.books)
+        if(results.id === book.id) {
+          result.shelf = book.shelf
+        } else {
+          result.shelf = 'undefined'
+        }
+      }
     }
 
 
@@ -61,8 +73,9 @@
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 170, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                       <div className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(event) => this.handleChange(event, book)}>
-                          <option value="none" disabled>Move to...</option>
+                        <select value={book.shelf}
+                          onChange={(event) => this.handleChange(event, book)}>
+                          <option value="undefined" >Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
                           <option value="read">Read</option>
@@ -82,9 +95,9 @@
     }
   }
 
-  SearchPage.proptypes = {
-    books: Proptypes.array.isRequired,
-    update: Proptypes.func.isRequired
-  }
+//  SearchPage.proptypes = {
+//    books: Proptypes.array.isRequired,
+//    update: Proptypes.func.isRequired
+//  }
 
   export default SearchPage;
