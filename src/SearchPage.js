@@ -1,5 +1,5 @@
   import React, { Component } from 'react';
-  //import Proptypes from 'prop-types';
+  import Proptypes from 'prop-types';
   import { Link } from 'react-router-dom';
   import * as BooksAPI from './BooksAPI';
 
@@ -40,7 +40,7 @@
         if(results.id === book.id) {
           result.shelf = book.shelf
         } else {
-          result.shelf = 'undefined'
+          result.shelf = 'none'
         }
       }
     }
@@ -75,7 +75,7 @@
                       <div className="book-shelf-changer">
                         <select value={book.shelf}
                           onChange={(event) => this.handleChange(event, book)}>
-                          <option value="undefined" >Move to...</option>
+                          <option value="undefined" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
                           <option value="read">Read</option>
@@ -95,9 +95,9 @@
     }
   }
 
-//  SearchPage.proptypes = {
-//    books: Proptypes.array.isRequired,
-//    update: Proptypes.func.isRequired
-//  }
+  SearchPage.proptypes = {
+    books: Proptypes.array.isRequired,
+    handleChange: Proptypes.func.isRequired
+  }
 
   export default SearchPage;
