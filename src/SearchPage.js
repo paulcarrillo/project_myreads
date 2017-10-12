@@ -20,8 +20,8 @@
           if(!results || results.error){
             this.setState({results: []})
           } else {
-            this.bookShelf(results)
-            this.setState({results})
+            const myResults = this.bookShelf(results)
+            this.setState({ results: myResults })
           }
         }
       )} else {
@@ -35,14 +35,17 @@
     }
 
     bookShelf = (results) => {
-      for (let result of results){
-        for (let book of this.props.books)
-          if(results.id === book.id) {
-            result.shelf = book.shelf
-          } else {
-            result.shelf = 'none'
+      const { books } = this.props;
+      return results.map(result => {
+        // eslint-disable-next-line
+        books.map(book => {
+          if (result.id === book.id) {
+          result.shelf = book.shelf;
           }
-        }
+        })
+        if (!result.shelf) result.shelf = 'none';
+        return result;
+      });
      }
 
 
